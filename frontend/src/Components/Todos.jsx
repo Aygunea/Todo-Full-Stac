@@ -14,7 +14,7 @@ const Todos = () => {
             let title = todoRef.current.value.trim();
             const newTodo = { title };
             // if (!title) return;
-            const response = await axios.post(`${BACKEND_URL}/api/todos`, newTodo);
+            const response = await axios.post(`${BACKEND_URL}`, newTodo);
             if (!title) {
                 console.log(response.data);
                 alert(response.data.message)
@@ -29,7 +29,7 @@ const Todos = () => {
 
     const getAllTodos = async () => {
         try {
-            const response = await axios.get(`${BACKEND_URL}/api/todos`);
+            const response = await axios.get(`${BACKEND_URL}`);
             setTodos(response.data);
         } catch (error) {
             console.error('Error fetching todos:', error);
@@ -38,7 +38,7 @@ const Todos = () => {
 
     const deletetodo = async (id) => {
         try {
-            await axios.delete(`${BACKEND_URL}/api/todos/${id}`);
+            await axios.delete(`${BACKEND_URL}/${id}`);
             const response = todos.filter(todo => todo._id !== id);
             setTodos(response);
         } catch (error) {
@@ -60,7 +60,7 @@ const Todos = () => {
             e.preventDefault()
             let title = todoRef.current.value.trim();
             if (!title) return;
-            await axios.patch(`${BACKEND_URL}/api/todos/${editingId}`, { title });
+            await axios.patch(`${BACKEND_URL}/${editingId}`, { title });
 
             setTodos(todos => todos.map(todo => {
                 return todo._id === editingId ? { ...todo, title } : todo;
